@@ -15,11 +15,14 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+            Venda.Text = "0";
         }
 
         double ValorT;
 
         int VendaContar;
+
+        
 
         private void btnInserir_Click(object sender, EventArgs e)
         {
@@ -36,16 +39,31 @@ namespace WindowsFormsApp1
 
         private void btnRemover_Click(object sender, EventArgs e)
         {
-            txtProduto.Clear();
+            if (dgvProdutos.RowCount > 0)
+            {
+                double removerValor = double.Parse(dgvProdutos.CurrentRow.Cells["Quantidade"].Value.ToString()) *
+                    double.Parse(dgvProdutos.CurrentRow.Cells["Valor"].Value.ToString());
+
+                double totalAlterado = ValorT - removerValor;
+
+                Venda.Text = dgvProdutos.RowCount.ToString();
+
+                ValorTotal.Text = totalAlterado.ToString("c");
+
+                dgvProdutos.Rows.RemoveAt(dgvProdutos.CurrentCell.RowIndex);
+            }
+
+                txtProduto.Clear();
             txtQuantidade.Clear();
             txtValorUnitario.Clear();
+
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
             if (txtAlterar.Text != "")
             {
-                dgvProdutos.CurrentRow.Cells[1].Value = txtAlterar;
+                dgvProdutos.CurrentRow.Cells[1].Value = txtAlterar.Text;
                 MessageBox.Show("Quantidade alterada com sucesso", "Exclusão",
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -71,7 +89,7 @@ namespace WindowsFormsApp1
             txtValorUnitario.Clear();
             txtAlterar.Clear();
             dgvProdutos.Rows.Clear();
-            ValorTotal.Text = "";
+            ValorTotal.Text = 0.ToString("c");
             VendaContar += 1;
             Venda.Text = VendaContar.ToString();
         }
@@ -99,6 +117,22 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (Venda.Text != "0")
+            {
+                txtProduto.Clear();
+                txtQuantidade.Clear();
+                txtValorUnitario.Clear();
+                txtAlterar.Clear();
+                dgvProdutos.Rows.Clear();
+                ValorTotal.Text = 0.ToString("c");
+                VendaContar -= 1;
+                Venda.Text = VendaContar.ToString();
+            }
+            else { MessageBox.Show("Não existem vendas registradas ainda!", "Erro", MessageBoxButtons.OK); }
         }
     }
 }
