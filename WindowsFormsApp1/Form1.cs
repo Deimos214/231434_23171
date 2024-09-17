@@ -22,16 +22,15 @@ namespace WindowsFormsApp1
 
         int VendaContar;
 
-        
+        double contador = 0;
 
         private void btnInserir_Click(object sender, EventArgs e)
         {
             dgvProdutos.Rows.Add(txtProduto.Text, txtQuantidade.Text, txtValorUnitario.Text);
-            double quantidade = double.Parse(txtQuantidade.Text);
-            double valor = double.Parse(txtValorUnitario.Text);
-            ValorT += quantidade * valor;
-            lblValorTotal.Text = ValorT.ToString();
+            
 
+            contador += Convert.ToDouble(txtQuantidade.Text) * Convert.ToDouble(txtValorUnitario.Text);
+            lblValorTotal.Text = contador.ToString();
             txtProduto.Clear();
             txtQuantidade.Clear();
             txtValorUnitario.Clear();
@@ -41,26 +40,38 @@ namespace WindowsFormsApp1
         {
             if (dgvProdutos.RowCount > 0)
             {
-                double removerValor = Convert.ToDouble(lblValorTotal.Text);
-                removerValor -= Convert.ToDouble(dgvProdutos.CurrentRow.Cells[1].Value) * Convert.ToDouble(dgvProdutos.CurrentRow.Cells[2].Value);
+                
+                double removerValor = Convert.ToDouble(dgvProdutos.CurrentRow.Cells[1].Value) * Convert.ToDouble(dgvProdutos.CurrentRow.Cells[2].Value);
 
-                lblValorTotal.Text = removerValor.ToString();
+                contador -= removerValor;
+
+                lblValorTotal.Text = contador.ToString();
                 dgvProdutos.Rows.RemoveAt(dgvProdutos.CurrentCell.RowIndex);
             }
 
                 txtProduto.Clear();
             txtQuantidade.Clear();
             txtValorUnitario.Clear();
-
+            
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
+
             if (txtAlterar.Text != "")
             {
+                contador -= double.Parse(dgvProdutos.CurrentRow.Cells[1].Value.ToString()) * double.Parse(dgvProdutos.CurrentRow.Cells[2].Value.ToString());
                 dgvProdutos.CurrentRow.Cells[1].Value = txtAlterar.Text;
+                txtAlterar.Clear();
+                if (dgvProdutos.RowCount > 0)
+                {
+                    double total = double.Parse(dgvProdutos.CurrentRow.Cells[1].Value.ToString()) * double.Parse(dgvProdutos.CurrentRow.Cells[2].Value.ToString());
+                    contador += total;
+                    lblValorTotal.Text = contador.ToString("C");
+                }
                 MessageBox.Show("Quantidade alterada com sucesso", "Exclusão",
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             }
         }
 
@@ -128,6 +139,11 @@ namespace WindowsFormsApp1
                 Venda.Text = VendaContar.ToString();
             }
             else { MessageBox.Show("Não existem vendas registradas ainda!", "Erro", MessageBoxButtons.OK); }
+        }
+
+        private void dgvProdutos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtAlterar.Text = dgvProdutos.CurrentRow.Cells[1].Value.ToString();
         }
     }
 }
