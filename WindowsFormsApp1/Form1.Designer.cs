@@ -45,7 +45,7 @@
             this.txtAlterar = new System.Windows.Forms.TextBox();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.ValorTotal = new System.Windows.Forms.Label();
+            this.lblValorTotal = new System.Windows.Forms.Label();
             this.btnGravar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnFinalizar = new System.Windows.Forms.Button();
@@ -203,14 +203,14 @@
             this.label7.TabIndex = 14;
             this.label7.Text = "Total da Venda:";
             // 
-            // ValorTotal
+            // lblValorTotal
             // 
-            this.ValorTotal.AutoSize = true;
-            this.ValorTotal.Location = new System.Drawing.Point(460, 650);
-            this.ValorTotal.Name = "ValorTotal";
-            this.ValorTotal.Size = new System.Drawing.Size(0, 13);
-            this.ValorTotal.TabIndex = 15;
-            this.ValorTotal.Click += new System.EventHandler(this.ValorTotal_Click);
+            this.lblValorTotal.AutoSize = true;
+            this.lblValorTotal.Location = new System.Drawing.Point(460, 650);
+            this.lblValorTotal.Name = "lblValorTotal";
+            this.lblValorTotal.Size = new System.Drawing.Size(0, 13);
+            this.lblValorTotal.TabIndex = 15;
+            this.lblValorTotal.Click += new System.EventHandler(this.ValorTotal_Click);
             // 
             // btnGravar
             // 
@@ -259,7 +259,7 @@
             this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGravar);
-            this.Controls.Add(this.ValorTotal);
+            this.Controls.Add(this.lblValorTotal);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnAlterar);
             this.Controls.Add(this.txtAlterar);
@@ -300,7 +300,7 @@
         private System.Windows.Forms.TextBox txtAlterar;
         private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label ValorTotal;
+        private System.Windows.Forms.Label lblValorTotal;
         private System.Windows.Forms.Button btnGravar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnFinalizar;

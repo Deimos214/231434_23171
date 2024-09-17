@@ -30,7 +30,7 @@ namespace WindowsFormsApp1
             double quantidade = double.Parse(txtQuantidade.Text);
             double valor = double.Parse(txtValorUnitario.Text);
             ValorT += quantidade * valor;
-            ValorTotal.Text = ValorT.ToString();
+            lblValorTotal.Text = ValorT.ToString();
 
             txtProduto.Clear();
             txtQuantidade.Clear();
@@ -41,15 +41,10 @@ namespace WindowsFormsApp1
         {
             if (dgvProdutos.RowCount > 0)
             {
-                double removerValor = double.Parse(dgvProdutos.CurrentRow.Cells["Quantidade"].Value.ToString()) *
-                    double.Parse(dgvProdutos.CurrentRow.Cells["Valor"].Value.ToString());
+                double removerValor = Convert.ToDouble(lblValorTotal.Text);
+                removerValor -= Convert.ToDouble(dgvProdutos.CurrentRow.Cells[1].Value) * Convert.ToDouble(dgvProdutos.CurrentRow.Cells[2].Value);
 
-                double totalAlterado = ValorT - removerValor;
-
-                Venda.Text = dgvProdutos.RowCount.ToString();
-
-                ValorTotal.Text = totalAlterado.ToString("c");
-
+                lblValorTotal.Text = removerValor.ToString();
                 dgvProdutos.Rows.RemoveAt(dgvProdutos.CurrentCell.RowIndex);
             }
 
@@ -89,7 +84,7 @@ namespace WindowsFormsApp1
             txtValorUnitario.Clear();
             txtAlterar.Clear();
             dgvProdutos.Rows.Clear();
-            ValorTotal.Text = 0.ToString("c");
+            lblValorTotal.Text = 0.ToString("c");
             VendaContar += 1;
             Venda.Text = VendaContar.ToString();
         }
@@ -128,7 +123,7 @@ namespace WindowsFormsApp1
                 txtValorUnitario.Clear();
                 txtAlterar.Clear();
                 dgvProdutos.Rows.Clear();
-                ValorTotal.Text = 0.ToString("c");
+                lblValorTotal.Text = 0.ToString("c");
                 VendaContar -= 1;
                 Venda.Text = VendaContar.ToString();
             }
